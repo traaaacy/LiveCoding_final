@@ -93,8 +93,8 @@ void main(void)
    uv/=1.5;
     
     ///uv.x+=0.5;
-   float t1 = vec3(texture(iChannel0,uv)).x;
-   float t2 = vec3(texture(iChannel1,uv)).x;
+  // float t1 = vec3(texture(iChannel0,uv)).x;
+  // float t2 = vec3(texture(iChannel1,uv)).x;
     vec3 col = vec3(0.9);
     vec3 col2 = vec3(0.);
     // Time varying pixel color
@@ -108,8 +108,8 @@ void main(void)
         uv/= .9+mod(fract(i +time/20.), 0.4);
             
         uv*=rot(i+time/30.*random(vec2(i*8.+1., i+1.))*2.);
-        t1 = vec3(texture(iChannel0,uv/2.)).x;
-        t2 = vec3(texture(iChannel1,uv/1.)).x;
+        //t1 = vec3(texture(iChannel0,uv/2.)).x;
+       // t2 = vec3(texture(iChannel1,uv/1.)).x;
 
     	col *=shadowCircle(uv, minWidth+i/num, i);  
         
