@@ -37,7 +37,7 @@ float map(vec3 p) {
   {
     vec3 q = p;
 	q.z+=pow(t.x,5.);
-    float id = round(q.z);
+    float id = floor(q.z);
     q.z -= id;
     q.xz *= r2(time+id);
     d = min(d, sd_b(q, vec3(0.1))-0.1);
@@ -73,8 +73,11 @@ void main(void)
   cu = normalize(cross(cf, vec3(1,0,0))),
   cl = normalize(cross(cf,cu)),
   rd = mat3(cl,cu,cf)*normalize(vec3(uv, fv));
-  float i,r,d,N=123.,h=0.;
-  for (i=r=0.; i<N; i++) {
+  float r,d,h=0.;
+  //i=0.;
+  float N = 123.;
+  r=0.;
+  for (int i=0; i<123; i++) {
     d =  1e9;
     { vec3 p = ro+rd*r;
       d=map(p);
@@ -91,15 +94,15 @@ void main(void)
       {
         vec3 p = ro+rd*r;
         float th = 0.0;
-        p.z -= round(p.z);
-	      
+        p.z -= floor(p.z);
+
         p.xy = abs(p.xy);
 	    p.x+=sin((-p.y))*t.y;
         p.xy -= 3.+pow(t.w,2.);
         p.xy *= r2(.25*pi);
         float n = floor(mix(1.,3.,t.x));
 	    if (t.w>.5&&t.w<.75)
-            p.xy -= clamp(round(p.xy),-1.,n);
+            p.xy -= clamp(floor(p.xy),-1.,n);
         d=min(d, sd_b(p, vec3(0.5+t.x,.05,.05)));
       }
       {
@@ -111,7 +114,7 @@ void main(void)
 	      p.xy = abs(p.xy);
 	      p.xy -= 4.;
 	      p.x += tri(0.5*(p.z + time*2.))*pow(t.x,2.);
-	      
+
 	      d=min(d, sd_b(p, vec3(0.1+.1*pow(t.y,2.),.1+.1*pow(t.y,2.),5.)));
       }
 
@@ -121,6 +124,6 @@ void main(void)
   }
   col *= clamp(1./(r*.1),0.,1.);
 
- 
+
   gl_FragColor = vec4(col, 1.);
 }
