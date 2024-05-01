@@ -19,7 +19,7 @@ vec3 colorMap(float t) {
 
 void main( void )
 {
-    vec2 uv = i / resolution.xy;
+    vec2 uv = gl_FragCrood / resolution.xy;
     uv -= 0.5;
     uv.x *= resolution.x / resolution.y;
     
@@ -33,5 +33,5 @@ void main( void )
     vec3 c = kr * (0.1 + kq * (1. - 0.5* colorMap(a / PI))) * (0.5 + 0.5 * sin(11.*a + 22.5*r));
 
     // Output to screen
-    o.rgb = mix(vec3(0.0, 0.0, 0.2), c, 0.85);
+    gl_FragColor= mix(vec3(0.0, 0.0, 0.2), c, 0.85);
 }
