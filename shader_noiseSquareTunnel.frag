@@ -127,5 +127,5 @@ void main(void)
     }
 col = sin(col+0.05);    
     // Output to screen
-    gl_fragColor = vec4(pow(col, vec3(1.)),1.0);
+    fragColor = vec4(pow(col, vec3(1.)),1.0);
 }
