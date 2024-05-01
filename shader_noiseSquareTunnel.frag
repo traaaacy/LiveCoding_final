@@ -4,6 +4,9 @@ uniform float time;
 uniform vec2 resolution;
 uniform vec2 mouse;
 uniform vec2 resolution; // This must be defined outside of main()
+uniform float t1;
+uniform float t2;
+
 
 
 float random (in vec2 st) {
