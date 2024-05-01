@@ -97,11 +97,11 @@ vec3 textex(sampler2D channel, vec3 p)
 
 void main(void)
 {
-	vec2 uv = fragCoord.xy / iResolution.xy;
+	vec2 uv = gl_fragCoord.xy / resolution.xy;
     uv = uv * 2.0 - 1.0;
-    uv.x *= iResolution.x / iResolution.y;
+    uv.x *= resolution.x / resolution.y;
     
-    vec3 o = vec3(0.0, 0.0, iTime * 4.0);
+    vec3 o = vec3(0.0, 0.0, time * 4.0);
     o.x -= sin(o.z * ss);
     o.y -= cos(o.z * ss);
     
@@ -158,5 +158,5 @@ void main(void)
     nfc.z += fc.x * 0.75;
     nfc *= 2.0;
     
-	fragColor = vec4(sqrt(nfc), 1.0);
+	gl_fragColor = vec4(sqrt(nfc), 1.0);
 }
