@@ -2,7 +2,7 @@ precision mediump float;
 
 uniform float time;
 uniform vec2 resolution;
-uniform vec2 resolution; // This must be defined outside of main()
+//uniform vec2 resolution; // This must be defined outside of main()
 
 
 
