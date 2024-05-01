@@ -137,7 +137,7 @@ void main( void )
     vec2 q = gl_FragCoord.xy / resolution.xy;
     vec2 p = -1.0 + 2.0*q;
     p.x *= resolution.x/ resolution.y;
-    vec2 mo = iMouse.xy / resolution.xy;
+    vec2 mo = mouse.xy / resolution.xy;
     float an = 2.0 + 0.05*time - mo.x+180.;
     
     vec3  light1 = vec3(  0.577, 0.577, -0.577 );
