@@ -4,9 +4,6 @@ uniform float time;
 uniform vec2 resolution;
 //uniform vec2 resolution; // This must be defined outside of main()
 
-
-
-
 float random (in vec2 st) {
     return fract(sin(dot(st.xy,
                          vec2(12.9898,78.233)))*
