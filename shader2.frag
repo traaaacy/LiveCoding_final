@@ -9,8 +9,7 @@ uniform vec2 mouse;
 // proper function... sorry for the messy indentation
 #define fGlobalTime time
 #define v2Resolution resolution
-#define texFFTSmoothed iChannel0
-#define texRevisionBW iChannel1
+
 const float pi = acos(-1.);
 #define r2(a) mat2(cos(a),-sin(a),sin(a), cos(a))
 vec4 s,t;
@@ -92,7 +91,7 @@ void main( void )
       }
       {
         vec3 p = ro+rd*r;
-        float th = mix(0.1,0.4,texture(texFFTSmoothed, vec2(0.01)).r*10.);
+        float th = 0.0;//mix(0.1,0.4,texture(texFFTSmoothed, vec2(0.01)).r*10.);
         p.z -= round(p.z);
 
         p.xy = abs(p.xy);
@@ -123,10 +122,6 @@ void main( void )
   }
   col *= clamp(1./(r*.1),0.,1.);
 
-  if (t.y>.5 && t.w < .5) {
-	  if (fract(t.x*4.)>.5&&texture(texRevisionBW,clamp(uv+0.5,0.,1.)).r>0.5)
-		  col=1.-col;
-  } else if (texture(texFFTSmoothed,vec2(0.005)).r > 0.3)
-    col = 1. - col;
-  out_color = vec4(col, 1.);
+
+  gl_FragColor = vec4(col, 1.);
 }
