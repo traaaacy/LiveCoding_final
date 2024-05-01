@@ -3,6 +3,8 @@ precision mediump float;
 uniform float time;
 uniform vec2 resolution;
 uniform vec2 mouse;
+uniform vec2 resolution; // This must be defined outside of main()
+
 
 float random (in vec2 st) {
     return fract(sin(dot(st.xy,
