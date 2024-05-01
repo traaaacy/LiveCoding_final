@@ -1,15 +1,13 @@
-precision mediump float;
-
-uniform float iTime;
-uniform vec2 iResolution;
-uniform vec2 mouse;
-
 // Based on my shader coded during the revision 2024 shader showdown
 // modified during the jam to add more transitions and I tried to fix
 // normals on the main saw wave shape (replacing asin(sin(x)) with a
 // proper function... sorry for the messy indentation
-#define fGlobalTime iTime
-#define v2Resolution iResolution
+
+precision mediump float;
+
+uniform float time;
+uniform vec2 resolution;
+uniform vec2 mouse;
 
 const float pi = acos(-1.);
 #define r2(a) mat2(cos(a),-sin(a),sin(a), cos(a))
@@ -18,7 +16,7 @@ float sd_b(vec3 p, vec3 e) {
   p = abs(p) -e ;
   return length(max(p,0.)) + min(max(max(p.x,p.y),p.z),0.);
 }
-#define time fGlobalTime
+
 float tri(float a) {
 	a/=4.;return min(fract(a),fract(-a))*4.-1.;
 }
@@ -57,11 +55,11 @@ vec3 nor(vec3 p) {
 
 void main(void)
 {
-    s = fGlobalTime*(120./60.)/vec4(1,4,8,16);
+    s = time*(120./60.)/vec4(1,4,8,16);
     t = fract(s);
-    vec2 uv = (gl_FragCoord.xy  - .5 * v2Resolution.xy ) / v2Resolution.y;
+    vec2 uv = (gl_FragCoord.xy  - .5 * resolution.xy ) / resolution.y;
     vec3 col = vec3(1);
-    vec3 ro = vec3(2.*cos(fGlobalTime),1.+2.*sin(fGlobalTime),4.);
+    vec3 ro = vec3(2.*cos(time),1.+2.*sin(time),4.);
     float fv = .5;
     if (t.w > .75)
         ro = vec3(4,0,t.w);
@@ -92,7 +90,7 @@ void main(void)
       }
       {
         vec3 p = ro+rd*r;
-        float th = 0.0;//mix(0.1,0.4,texture(texFFTSmoothed, vec2(0.01)).r*10.);
+        float th = 0.0;
         p.z -= round(p.z);
 	      
         p.xy = abs(p.xy);
@@ -126,5 +124,3 @@ void main(void)
  
   gl_FragColor = vec4(col, 1.);
 }
-
-
