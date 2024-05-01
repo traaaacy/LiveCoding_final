@@ -119,7 +119,7 @@ void main(void)
         col2 = vec3( pow(i/num, 3.), pow(i/num, 2.),pow(i/num, 3.))+0.3;
         col2 = vec3( pow(i/num, 4.), pow(i/num, 2.),pow(i/num, 1.5))+0.65;
 
-	col = mix(col, col2, rimCircle(uv, minWidth+i/num, i)*i/num);
+	//col = mix(col, col2, rimCircle(uv, minWidth+i/num, i)*i/num);
     //uv+=vec2(0.4,0.2);
         
     }
