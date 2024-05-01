@@ -88,7 +88,7 @@ float Circle(vec2 p, float r, float i)
 void main(void)
 {
     // Normalized pixel coordinates (from 0 to 1)
-    vec2 uv = gl_fragCoord/resolution.xy;
+    vec2 uv = gl_FragCoord/resolution.xy;
 	uv = uv*2.0-1.0;
     uv.x*=resolution.x/resolution.y;
    uv/=1.5;
@@ -127,5 +127,5 @@ void main(void)
     }
 col = sin(col+0.05);    
     // Output to screen
-    fragColor = vec4(pow(col, vec3(1.)),1.0);
+    gl_FragColor = vec4(pow(col, vec3(1.)),1.0);
 }
