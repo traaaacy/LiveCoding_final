@@ -1,3 +1,8 @@
+precision mediump float;
+
+uniform float time;
+uniform vec2 resolution;
+uniform vec2 mouse;
 
 float random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -28,7 +33,7 @@ float noise (in vec2 st) {
 #define OCTAVES 4
 float fbm (in vec2 st) {
     st/=2.;
-    st+=iTime/8.;
+    st+=time/8.;
     // Initial values
     float value = 0.0;
     float amplitude = .5;
@@ -48,10 +53,10 @@ mat2 rot(float a)
 }
 float shadowCircle(vec2 p, float r, float i)
     {
-        p +=vec2(0.02, 0.02)*rot(iTime/100.);//light direction
+        p +=vec2(0.02, 0.02)*rot(time/100.);//light direction
         
         float a  =atan( p.y,p.x);
-        float shape = fbm(p);//sin(a*i+i/1.*iTime/10.+iTime)/10.;
+        float shape = fbm(p);//sin(a*i+i/1.*time/10.+time)/10.;
  	float ss = 0.07;
     float k = 1.0-smoothstep(r-ss, r+ss, max(abs(p.x),abs(p.y))-0.2+shape);
     return pow(k,1.1);
@@ -60,7 +65,7 @@ float shadowCircle(vec2 p, float r, float i)
 float rimCircle(vec2 p, float r, float i)
 {
     float a  =atan( p.y,p.x);
-    float shape = fbm(p);//sin(a*i+i/1.*iTime/10.+iTime)/10.;
+    float shape = fbm(p);//sin(a*i+i/1.*time/10.+time)/10.;
  	float ss = 0.004;//0.0053
     
     float rim = 0.004;
@@ -74,18 +79,18 @@ float Circle(vec2 p, float r, float i)
 {
  	float ss = 0.009;
     float a  =atan( p.y,p.x);
-    float shape = fbm(p);//sin(a*i+i/1.*iTime/10.+iTime)/10.;
+    float shape = fbm(p);//sin(a*i+i/1.*time/10.+time)/10.;
     
     float k = smoothstep(r-ss, r+ss, max(abs(p.x),abs(p.y))-0.2+shape);   
     return k+rimCircle(p,r-0.001, i);//shadowCircle(p,r);
 }
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void main(void)
 {
     // Normalized pixel coordinates (from 0 to 1)
-    vec2 uv = fragCoord/iResolution.xy;
+    vec2 uv = gl_fragCoord/resolution.xy;
 	uv = uv*2.0-1.0;
-    uv.x*=iResolution.x/iResolution.y;
+    uv.x*=resolution.x/resolution.y;
    uv/=1.5;
     
     ///uv.x+=0.5;
@@ -101,9 +106,9 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     float num = 20.;
     float minWidth = -0.2;
     for(float i = 0.;i<num;i++){
-        uv/= .9+mod(fract(i +iTime/20.), 0.4);
+        uv/= .9+mod(fract(i +time/20.), 0.4);
             
-        uv*=rot(i+iTime/30.*random(vec2(i*8.+1., i+1.))*2.);
+        uv*=rot(i+time/30.*random(vec2(i*8.+1., i+1.))*2.);
         t1 = vec3(texture(iChannel0,uv/2.)).x;
         t2 = vec3(texture(iChannel1,uv/1.)).x;
 
@@ -122,5 +127,5 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     }
 col = sin(col+0.05);    
     // Output to screen
-    fragColor = vec4(pow(col, vec3(1.)),1.0);
+    gl_fragColor = vec4(pow(col, vec3(1.)),1.0);
 }
