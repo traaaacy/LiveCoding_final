@@ -19,7 +19,7 @@ vec3 colorMap(float t) {
 
 void main( void )
 {
-    vec2 uv = gl_FragCrood / resolution.xy;
+    vec2 uv = resulution.xy / resolution.xy;
     uv -= 0.5;
     uv.x *= resolution.x / resolution.y;
     
