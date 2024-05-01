@@ -36,7 +36,7 @@ float scene1(vec3 p)
 	return min(max(min(-t1,max(-hole-t5*0.375,ground+bubble)),t3+t5),tube);
 	}
 
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
+void main( void )
 	{
 	float speed=time*0.5;
     float ground_x=1.5*cos(PI*speed*0.125);
