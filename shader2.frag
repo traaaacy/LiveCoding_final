@@ -1,3 +1,9 @@
+precision mediump float;
+
+uniform float iTime;
+uniform vec2 iResolution;
+uniform vec2 mouse;
+
 // Based on my shader coded during the revision 2024 shader showdown
 // modified during the jam to add more transitions and I tried to fix
 // normals on the main saw wave shape (replacing asin(sin(x)) with a
