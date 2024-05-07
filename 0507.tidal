@@ -1,0 +1,115 @@
+
+hush
+
+-- Begin
+d1 $ s "bd ~ ~ ~ ~" # lpf "500 1000 1500" # lpq 0.5 # room 0.7 # gain 0.9
+
+d1 $ s "bd ~ bd ~ ~" # lpf "500 1000 1500" # lpq 0.5 # room 0.7 # gain 0.9
+
+d1 $ s "bd hh bd hh*2" # lpf "500 1000 1500" # lpq 0.5 # room 0.7 # gain 0.9
+
+xfade 2 $ note "<[g4'm9 f4'maj9 g4'm9 c4'maj13] [d5'min7 bf4'nine a4'min9 c4'nine]>"
+   # sound "<superpiano supersquare supersaw>"
+   # lpf "500 1000 1500"
+   # lpq 0.5
+   # gain 0.6
+
+xfade 3 $ sound "drum*8" # n (irand 8) # lpf (slow 4 $ range 200 5000 $ sine) # gain 1.2
+
+xfade 4 $ sound "clap [house:4 house:4]" # lpf (fast 2 $ range 3000 5000 $ sine) # gain 1.1
+
+do
+xfade 2 $ note "<[g4'm9 f4'maj9 g4'm9 c4'maj13] [d5'min7 bf4'nine a4'min9 c4'nine]>"
+   # sound "<superpiano supersquare supersaw>"
+   # hpf "500 1000 1500"
+   # lpq 0.5
+   # gain 0.7
+xfade 3 $ slow 2 $ s "wind" >| note "[g4'm9 f4'maj9 g4'm9 c4'maj13] [d5'min7 bf4'nine a4'min9 c4'nine]" # room 0.7 # gain 0.7
+
+xfade 1 $ loopAt 10 $ chop 32 $ sound "finSamp:0" # room 0.8 # krush 0.8 # hpf (slow 4 $ range 3000 5000 $ sine)
+
+xfade 2 $ slow 2 $ s "wind" >| note "[g4'm9 f4'maj9 g4'm9 c4'maj13] [d5'min7 bf4'nine a4'min9 c4'nine]" # room 0.7 # gain 0.7
+
+-- Eyes Shut
+do
+xfadeIn 1 4$ loopAt 10 $ chop 32 $ sound "finSamp:0" # room 0.8 # krush 0.8 # hpf (slow 4 $ range 3000 5000 $ sine) # gain 1.5
+xfadeIn 2 8 $ silence
+xfadeIn 3 4$ slow 2 $ chop 64 $ jux (# speed "0.5") $ s "sheffield" # gain (slow 2 (segment 128 (range 0.3 0.8 sine)))
+xfadeIn 4 4$ silence
+
+-- Eyes Wide Open
+do
+xfadeIn 1 10 $ loopAt 10 $ chop 32 $ sound "finSamp:0" # room 0.8 # krush 0.8 # lpf (slow 4 $ range 1000 5000 $ sine) # gain 1.2
+xfadeIn 2 4$ s "seawolf" # n (irand 3) # hpf (slow 2 $ range 1000 3000 $ sine) # gain 0.7
+
+xfadeIn 1 4$ loopAt 10 $ chop 32 $ sound "finSamp:0" # room 0.8 # krush 0.8 # hpf (slow 4 $ range 3000 5000 $ sine) # gain 1.5
+
+do
+xfadeIn 3 4$ loopAt 4 $ chop 32 $ sound "finSamp:3" # room 1.2 # krush 0.7 # gain 1.2
+d12 $ slow 2 $ chop 64 $ jux (# speed "0.5") $ s "sheffield" # gain (slow 2 (segment 128 (range 0.3 0.8 sine)))
+
+xfadeIn 2 4 $ slow 2 $ s "wind" >| note "[g4'm9 f4'maj9 g4'm9 c4'maj13] [d5'min7 bf4'nine a4'min9 c4'nine]" # room 0.7 # gain 0.7
+
+-- Punch Through!
+d8 $ qtrigger $ filterWhen (>=0) $ seqP [
+  (0,3,s "<amencutup:13*4 amencutup:13*8 amencutup:13*16>" # gain (slow 4(range 0.9 1.6 saw)) # room 0.3 # hpf (slow 4 (1000*saw + 100)) # speed (slow 4 (range 1 2 saw))),
+  (3,4, s "finSfx:3" # room 0.8 # gain 1)
+]
+
+-- Rewind Back (Sfx, CasiSample)
+
+do
+xfade 1 $ silence
+xfade 2 $ silence
+xfade 3 $ silence
+xfade 4 $ silence
+xfade 5 $ silence
+once $ qtrigger $ sound "finSfx:0" # room 0.8 # krush 0.5 # gain 1.2
+
+xfadeIn 3 8 $ loopAt 16 $ chop 32 $ sound "finSamp:12" # room 0.8 # krush 0.5 # lpf 400
+
+xfadeIn 2 8 $ loopAt 16 $ chop 32 $ sound "finSamp:12" # room 0.8 # krush 0.8 # hpf 1000
+
+do
+xfade 1 $ silence
+xfade 2 $ silence
+xfade 3 $ silence
+xfade 4 $ silence
+xfade 5 $ silence
+xfade 12 $ silence
+
+hush
+
+
+
+
+
+
+d7 $ jux (striate 4) $ fast 0.25 $ s "supersaw" <| up "<[d5'maj6 g5'maj7 a5'maj8 b5'maj9 b'maj9 ~ a'maj9 c'maj9] [f'maj7 g'maj9 a'maj7 a'maj7 a'maj7 ~ a'maj7 a'maj9]>" # gain 0.7 # room 0.2 # crush 1
+
+d1 $ fast 0.5 $ s "supersaw" <| up "<[f5'maj6 ~ ~ f5'maj6 g5'maj8 ~  ~ gs5'maj9] >" # gain 0.5
+
+d1 $ slow 2 $ s "arpy" <| note "f'maj <a'min g'min> f'maj ~ g'maj c'maj" # sustain 10 # room 2
+
+d4 $ slow 2 $ s "supervibe" <| note "g'sharp <c a'sharp> g'sharp ~  a'sharp d'sharp" #gain 1.3
+
+d2 $ slow 2 $ s "bd sd hh bd sd hh"  # gain 2 #speed 1.2
+
+d3 $ s "mouth*6" # gain 1.8 # speed (0.5)
+
+d5 $ fast 2 $ s "feel*2" #gain 1.8
+
+solo 1
+
+hush
+
+panic
+
+d8 $ qtrigger $ filterWhen (>=0) $ seqP [
+  (0, 1,s "amencutup:13*4"), -- (0, 1) is for the cycle 0 to 1
+  (1,2, s "amencutup:13*8"),
+  (2,3, s "amencutup:13*16")
+  --(3,4, s "")
+]  # gain (slow 4(range 0.9 1.6 saw)) # room 0.3 # hpf (slow 4 (1000*saw + 100)) # speed (slow 4 (range 1 2 saw))
+
+
