@@ -28,6 +28,7 @@ video2.oncanplaythrough = function() {
 s2.init({ src: video2, dynamic: true });
 src(s2).out(o2)
 }
+
 video3 = document.createElement('video');
 video3.loop = true;
 video3.crossOrigin = "anonymous";
@@ -37,7 +38,6 @@ video3.oncanplaythrough = function() {
 s3.init({ src: video3, dynamic: true });
 src(s3).out(o3)
 }
-
 
  video4 = document.createElement('video');
 video4.loop = true;
